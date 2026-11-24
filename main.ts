@@ -24,6 +24,11 @@ if (LINE.length < 1 || LINE.length > 200) {
 if (LINE.trim().length === 0) {
   throw new Error("line must not be only white space");
 }
+// The judge compares one line at a time: a newline would split the
+// entry into two lines, so refuse anything but a single line.
+if (LINE.includes("\n") || LINE.includes("\r")) {
+  throw new Error("line must be a single line, no line breaks");
+}
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
 writeFileSync(OUTPUT_FILE, LINE, "utf8");
